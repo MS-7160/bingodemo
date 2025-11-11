@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    bingo_cell_selected.xml - Background for selected/marked Bingo cells
+    
+    This drawable defines the appearance of selected Bingo cells and the FREE space.
+    Applied when a user clicks a cell to mark it, or by default on the center FREE cell.
+    
+    Properties:
+    - Rectangle shape with rounded corners (4dp radius)
+    - Light green background (#C8E6C9)
+    - Green border stroke (2dp width, #4CAF50 color)
+    
+    The green color scheme provides clear visual feedback that a cell is marked.
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <!-- Green border around the selected cell -->
+    <stroke
+        android:width="2dp"
+        android:color="#4CAF50" />
+    <!-- Light green background fill -->
+    <solid android:color="#C8E6C9" />
+    <!-- Rounded corners -->
+    <corners android:radius="4dp" />
+</shape>

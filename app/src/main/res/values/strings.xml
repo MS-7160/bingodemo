@@ -1,0 +1,80 @@
+<resources>
+    <!-- Application name displayed in the launcher and toolbar -->
+    <string name="app_name">Bingo Game</string>
+    
+    <!-- Title displayed at the top of the main Bingo game screen -->
+    <string name="bingo_title">BINGO CARD</string>
+    
+    <!-- Button text for generating a new random Bingo card -->
+    <string name="generate_new_card">Generate New Card</string>
+    
+    <!-- ========== Login Activity Strings ========== -->
+    <!-- Welcome message shown on the login screen -->
+    <string name="welcome_message">Welcome to my game!</string>
+    
+    <!-- Label for the username input field -->
+    <string name="username_label">Username</string>
+    
+    <!-- Label for the password input field -->
+    <string name="password_label">Password</string>
+    
+    <!-- Hint text for username EditText -->
+    <string name="enter_username_hint">Enter username</string>
+    
+    <!-- Hint text for password EditText -->
+    <string name="enter_password_hint">Enter password</string>
+    
+    <!-- Text for the login submit button -->
+    <string name="enter_button">Enter</string>
+    
+    <!-- ========== Configuration Activity Strings ========== -->
+    <!-- Title for the configuration/settings screen -->
+    <string name="configuration_title">Configuration</string>
+    
+    <!-- Label for existing username verification field -->
+    <string name="existing_user_label">Existing user:</string>
+    
+    <!-- Label for existing password verification field -->
+    <string name="existing_password_label">Existing password:</string>
+    
+    <!-- Hint for existing username EditText -->
+    <string name="existing_username_hint">Enter existing username</string>
+    
+    <!-- Hint for existing password EditText -->
+    <string name="existing_password_hint">Enter existing password</string>
+    
+    <!-- Label for new username input field -->
+    <string name="new_username_label">New username:</string>
+    
+    <!-- Label for new password input field -->
+    <string name="new_password_label">New password:</string>
+    
+    <!-- Hint for new username EditText -->
+    <string name="new_username_hint">Enter new username</string>
+    
+    <!-- Hint for new password EditText -->
+    <string name="new_password_hint">Enter new password</string>
+    
+    <!-- Button text for confirming credential changes -->
+    <string name="confirm_button">Confirm</string>
+    
+    <!-- Button text for navigating to configuration screen -->
+    <string name="change_password_button">Change Password</string>
+    
+    <!-- ========== Bingo Grid Strings ========== -->
+    <!-- BINGO header letters - displayed at the top of each column -->
+    <string name="bingo_header_b">B</string>
+    <string name="bingo_header_i">I</string>
+    <string name="bingo_header_n">N</string>
+    <string name="bingo_header_g">G</string>
+    <string name="bingo_header_o">O</string>
+    
+    <!-- Free space text in the center of the Bingo card -->
+    <string name="bingo_free">FREE</string>
+    
+    <!-- Default number placeholder - replaced dynamically by code -->
+    <string name="default_number">1</string>
+    
+    <!-- Round information format string with placeholders for username and round number -->
+    <string name="round_info">Player: %1$s | Round: %2$d</string>
+</resources>

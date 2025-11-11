@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    activity_login.xml - Login screen layout
+    
+    This layout provides the user interface for the login functionality.
+    It uses a LinearLayout with vertical orientation and centered content.
+    
+    Components:
+    - Welcome message TextView
+    - Username input section (label + EditText)
+    - Password input section (label + EditText)
+    - Enter button to submit credentials
+    
+    All text strings are externalized to strings.xml for localization.
+    Autofill hints are provided for better user experience.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:gravity="center">
+
+    <!-- Welcome message displayed at the top of the login screen -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/welcome_message"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="32dp" />
+
+    <!-- Label for username input field -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/username_label"
+        android:textSize="16sp"
+        android:layout_gravity="start"
+        android:layout_marginBottom="8dp" />
+
+    <!-- EditText for entering username with autofill support -->
+    <EditText
+        android:id="@+id/usernameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/enter_username_hint"
+        android:inputType="text"
+        android:autofillHints="username"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Label for password input field -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/password_label"
+        android:textSize="16sp"
+        android:layout_gravity="start"
+        android:layout_marginBottom="8dp" />
+
+    <!-- EditText for entering password with masked input and autofill support -->
+    <EditText
+        android:id="@+id/passwordEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/enter_password_hint"
+        android:inputType="textPassword"
+        android:autofillHints="password"
+        android:layout_marginBottom="24dp" />
+
+    <!-- Button to submit login credentials and proceed to MainActivity -->
+    <Button
+        android:id="@+id/enterButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/enter_button"
+        android:textSize="18sp" />
+
+</LinearLayout>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    button_config_background.xml - Custom background for configuration button
+    
+    This drawable defines a purple rounded rectangle background used for
+    the "Change Password" button in MainActivity.
+    
+    Properties:
+    - Solid purple color (#FF6200EE)
+    - 4dp corner radius for rounded edges
+    
+    This provides visual distinction from the default "Generate New Card" button.
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Purple background color -->
+    <solid android:color="#FF6200EE" />
+    
+    <!-- Rounded corners with 4dp radius -->
+    <corners android:radius="4dp" />
+</shape>

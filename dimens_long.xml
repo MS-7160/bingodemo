@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Dimensions for tall screens (20:9 like Pixel 6) -->
+    <!-- Using 'long' screen qualifier for taller aspect ratios -->
+    <dimen name="title_text_size">26sp</dimen>
+    <dimen name="title_margin_top">24dp</dimen>
+    <dimen name="grid_margin_horizontal">24dp</dimen>
+    <dimen name="grid_margin_top">24dp</dimen>
+    <dimen name="grid_margin_bottom">24dp</dimen>
+    <dimen name="bingo_header_text_size">22sp</dimen>
+    <dimen name="bingo_cell_text_size">20sp</dimen>
+    <dimen name="bingo_free_text_size">18sp</dimen>
+    <dimen name="cell_margin">3dp</dimen>
+    <dimen name="button_margin_horizontal">48dp</dimen>
+    <dimen name="button_margin_bottom">32dp</dimen>
+    <dimen name="button_text_size">18sp</dimen>
+</resources>

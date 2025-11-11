@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    AndroidManifest.xml - Application manifest file
+    
+    This file declares essential information about the application including:
+    - Application-level settings (icons, theme, backup rules)
+    - Activity declarations and their properties
+    - Intent filters for launcher activities
+    
+    Activities:
+    1. LoginActivity - Entry point (LAUNCHER), handles user authentication
+    2. MainActivity - Main game screen, displays Bingo card
+    3. ConfigActivity - Settings screen, allows credential changes
+    
+    The login flow:
+    LoginActivity (first) → MainActivity (after successful login) → ConfigActivity (optional)
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Bingodemo">
+        
+        <!-- LoginActivity: First screen shown when app launches -->
+        <!-- Handles user authentication with username and password -->
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+        <!-- MainActivity: Main Bingo game screen -->
+        <!-- Displays 5x5 Bingo card with interactive cells -->
+        <!-- Only accessible after successful login -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="false">
+        </activity>
+        
+        <!-- ConfigActivity: Configuration screen for changing credentials -->
+        <!-- Allows users to update their username and password -->
+        <!-- Requires verification of existing credentials -->
+        <activity
+            android:name=".ConfigActivity"
+            android:exported="false">
+        </activity>
+    </application>
+
+</manifest>

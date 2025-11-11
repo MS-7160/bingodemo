@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    activity_config.xml - Configuration screen layout
+    
+    This layout provides the user interface for changing login credentials.
+    Users must verify their existing credentials before setting new ones.
+    It uses a LinearLayout with vertical orientation.
+    
+    Components:
+    - Configuration title TextView
+    - Existing username input section (label + EditText)
+    - Existing password input section (label + EditText)
+    - New username input section (label + EditText)
+    - New password input section (label + EditText)
+    - Confirm button to validate and save changes
+    
+    Validation logic:
+    1. Existing credentials must match saved values
+    2. New credentials must not be empty
+    3. On success, data is saved and user returns to MainActivity after 2 seconds
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <!-- Configuration title displayed at the top center -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/configuration_title"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:layout_marginBottom="32dp" />
+
+    <!-- Label for existing username verification field -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/existing_user_label"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp" />
+
+    <!-- EditText for entering existing username to verify identity -->
+    <EditText
+        android:id="@+id/existingUsernameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/existing_username_hint"
+        android:inputType="text"
+        android:autofillHints="username"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Label for existing password verification field -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/existing_password_label"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp" />
+
+    <!-- EditText for entering existing password to verify identity -->
+    <EditText
+        android:id="@+id/existingPasswordEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/existing_password_hint"
+        android:inputType="textPassword"
+        android:autofillHints="password"
+        android:layout_marginBottom="24dp" />
+
+    <!-- Label for new username input field -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/new_username_label"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp" />
+
+    <!-- EditText for entering the new username -->
+    <EditText
+        android:id="@+id/newUsernameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/new_username_hint"
+        android:inputType="text"
+        android:autofillHints="username"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Label for new password input field -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/new_password_label"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp" />
+
+    <!-- EditText for entering the new password -->
+    <EditText
+        android:id="@+id/newPasswordEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/new_password_hint"
+        android:inputType="textPassword"
+        android:autofillHints="password"
+        android:layout_marginBottom="32dp" />
+
+    <!-- Button to confirm and save credential changes -->
+    <Button
+        android:id="@+id/confirmButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/confirm_button"
+        android:textSize="18sp" />
+
+</LinearLayout>

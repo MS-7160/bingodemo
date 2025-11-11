@@ -1,0 +1,574 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    activity_main.xml - Main Bingo Game Screen Layout
+    
+    This layout implements the main Bingo game interface using ConstraintLayout
+    for flexible positioning and LinearLayouts for the grid structure.
+    
+    Layout Structure:
+    1. MaterialToolbar - App title bar at the top
+    2. Title TextView - "BINGO CARD" heading
+    3. Bingo Grid (LinearLayout) - 6 rows total:
+       - Row 0: BINGO header (B-I-N-G-O letters)
+       - Rows 1-5: 5x5 grid of clickable number cells
+         * Each cell is a TextView with ID pattern: cell_[row]_[col]
+         * Center cell (2,2) is the FREE space (always marked)
+         * Numbers are generated dynamically by MainActivity.kt
+    4. Action Button - "Generate New Card" button
+    5. Config Button - "Change Password" button (purple background)
+    
+    Grid Layout:
+    - Column B: Numbers 1-15
+    - Column I: Numbers 16-30
+    - Column N: Numbers 31-45 (with FREE at center)
+    - Column G: Numbers 46-60
+    - Column O: Numbers 61-75
+    
+    Interaction:
+    - Cells can be clicked to toggle selection (changes background)
+    - Generate New Card button creates new random numbers
+    - Change Password button navigates to ConfigActivity
+-->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <!-- Toolbar at the top showing app name -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        app:title="@string/app_name"
+        app:titleTextColor="@android:color/white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- "BINGO CARD" title text centered below toolbar -->
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/bingo_title"
+        android:textSize="@dimen/title_text_size"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="@dimen/title_margin_top"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Round information display showing player name and round number -->
+    <TextView
+        android:id="@+id/roundInfoTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Player: User | Round: 1"
+        android:textSize="14sp"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/titleTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- 
+        Main Bingo grid container - holds 6 rows (header + 5 data rows)
+        Uses nested LinearLayouts for consistent cell sizing
+        Displays player info and round number above the grid
+    -->
+    <LinearLayout
+        android:id="@+id/bingoGrid"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_marginStart="@dimen/grid_margin_horizontal"
+        android:layout_marginEnd="@dimen/grid_margin_horizontal"
+        android:layout_marginTop="@dimen/grid_margin_top"
+        android:layout_marginBottom="@dimen/grid_margin_bottom"
+        app:layout_constraintTop_toBottomOf="@id/roundInfoTextView"
+        app:layout_constraintBottom_toTopOf="@id/actionButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_default="spread"
+        app:layout_constraintHeight_default="spread">
+
+        <!-- BINGO Header Row - Displays the letters B-I-N-G-O -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <!-- B column header -->
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/bingo_header_b"
+                android:gravity="center"
+                android:textSize="@dimen/bingo_header_text_size"
+                android:textStyle="bold"
+                android:background="@drawable/bingo_cell_border"
+                android:layout_margin="@dimen/cell_margin" />
+
+            <!-- I column header -->
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/bingo_header_i"
+                android:gravity="center"
+                android:textSize="@dimen/bingo_header_text_size"
+                android:textStyle="bold"
+                android:background="@drawable/bingo_cell_border"
+                android:layout_margin="@dimen/cell_margin" />
+
+            <!-- N column header -->
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/bingo_header_n"
+                android:gravity="center"
+                android:textSize="@dimen/bingo_header_text_size"
+                android:textStyle="bold"
+                android:background="@drawable/bingo_cell_border"
+                android:layout_margin="@dimen/cell_margin" />
+
+            <!-- G column header -->
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/bingo_header_g"
+                android:gravity="center"
+                android:textSize="@dimen/bingo_header_text_size"
+                android:textStyle="bold"
+                android:background="@drawable/bingo_cell_border"
+                android:layout_margin="@dimen/cell_margin" />
+
+            <!-- O column header -->
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/bingo_header_o"
+                android:gravity="center"
+                android:textSize="@dimen/bingo_header_text_size"
+                android:textStyle="bold"
+                android:background="@drawable/bingo_cell_border"
+                android:layout_margin="@dimen/cell_margin" />
+        </LinearLayout>
+
+        <!-- Row 1 - First row of Bingo numbers (cells 0,0 to 0,4) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/cell_0_0"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/default_number"
+                android:gravity="center"
+                android:textSize="@dimen/bingo_cell_text_size"
+                android:background="@drawable/bingo_cell_border"
+                android:layout_margin="@dimen/cell_margin"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <TextView
+                android:id="@+id/cell_0_1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/default_number"
+                android:gravity="center"
+                android:textSize="@dimen/bingo_cell_text_size"
+                android:background="@drawable/bingo_cell_border"
+                android:layout_margin="@dimen/cell_margin"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <TextView
+                android:id="@+id/cell_0_2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/default_number"
+                android:gravity="center"
+                android:textSize="@dimen/bingo_cell_text_size"
+                android:background="@drawable/bingo_cell_border"
+                android:layout_margin="@dimen/cell_margin"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <TextView
+                android:id="@+id/cell_0_3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/default_number"
+                android:gravity="center"
+                android:textSize="@dimen/bingo_cell_text_size"
+                android:background="@drawable/bingo_cell_border"
+                android:layout_margin="@dimen/cell_margin"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <TextView
+                android:id="@+id/cell_0_4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/default_number"
+                android:gravity="center"
+                android:textSize="@dimen/bingo_cell_text_size"
+                android:background="@drawable/bingo_cell_border"
+                android:layout_margin="@dimen/cell_margin"
+                android:clickable="true"
+                android:focusable="true" />
+        </LinearLayout>
+
+        <!-- Row 2 - Second row of Bingo numbers (cells 1,0 to 1,4) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/cell_1_0"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/default_number"
+                android:gravity="center"
+                android:textSize="@dimen/bingo_cell_text_size"
+                android:background="@drawable/bingo_cell_border"
+                android:layout_margin="@dimen/cell_margin"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <TextView
+                android:id="@+id/cell_1_1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/default_number"
+                android:gravity="center"
+                android:textSize="@dimen/bingo_cell_text_size"
+                android:background="@drawable/bingo_cell_border"
+                android:layout_margin="@dimen/cell_margin"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <TextView
+                android:id="@+id/cell_1_2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/default_number"
+                android:gravity="center"
+                android:textSize="@dimen/bingo_cell_text_size"
+                android:background="@drawable/bingo_cell_border"
+                android:layout_margin="@dimen/cell_margin"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <TextView
+                android:id="@+id/cell_1_3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/default_number"
+                android:gravity="center"
+                android:textSize="@dimen/bingo_cell_text_size"
+                android:background="@drawable/bingo_cell_border"
+                android:layout_margin="@dimen/cell_margin"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <TextView
+                android:id="@+id/cell_1_4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/default_number"
+                android:gravity="center"
+                android:textSize="@dimen/bingo_cell_text_size"
+                android:background="@drawable/bingo_cell_border"
+                android:layout_margin="@dimen/cell_margin"
+                android:clickable="true"
+                android:focusable="true" />
+        </LinearLayout>
+
+        <!-- Row 3 - Third row of Bingo numbers with FREE space in center (cells 2,0 to 2,4) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/cell_2_0"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/default_number"
+                android:gravity="center"
+                android:textSize="@dimen/bingo_cell_text_size"
+                android:background="@drawable/bingo_cell_border"
+                android:layout_margin="@dimen/cell_margin"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <TextView
+                android:id="@+id/cell_2_1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/default_number"
+                android:gravity="center"
+                android:textSize="@dimen/bingo_cell_text_size"
+                android:background="@drawable/bingo_cell_border"
+                android:layout_margin="@dimen/cell_margin"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <TextView
+                android:id="@+id/cell_2_2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/bingo_free"
+                android:gravity="center"
+                android:textSize="@dimen/bingo_free_text_size"
+                android:textStyle="bold"
+                android:background="@drawable/bingo_cell_selected"
+                android:layout_margin="@dimen/cell_margin"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <TextView
+                android:id="@+id/cell_2_3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/default_number"
+                android:gravity="center"
+                android:textSize="@dimen/bingo_cell_text_size"
+                android:background="@drawable/bingo_cell_border"
+                android:layout_margin="@dimen/cell_margin"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <TextView
+                android:id="@+id/cell_2_4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/default_number"
+                android:gravity="center"
+                android:textSize="@dimen/bingo_cell_text_size"
+                android:background="@drawable/bingo_cell_border"
+                android:layout_margin="@dimen/cell_margin"
+                android:clickable="true"
+                android:focusable="true" />
+        </LinearLayout>
+
+        <!-- Row 4 - Fourth row of Bingo numbers (cells 3,0 to 3,4) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/cell_3_0"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/default_number"
+                android:gravity="center"
+                android:textSize="@dimen/bingo_cell_text_size"
+                android:background="@drawable/bingo_cell_border"
+                android:layout_margin="@dimen/cell_margin"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <TextView
+                android:id="@+id/cell_3_1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/default_number"
+                android:gravity="center"
+                android:textSize="@dimen/bingo_cell_text_size"
+                android:background="@drawable/bingo_cell_border"
+                android:layout_margin="@dimen/cell_margin"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <TextView
+                android:id="@+id/cell_3_2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/default_number"
+                android:gravity="center"
+                android:textSize="@dimen/bingo_cell_text_size"
+                android:background="@drawable/bingo_cell_border"
+                android:layout_margin="@dimen/cell_margin"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <TextView
+                android:id="@+id/cell_3_3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/default_number"
+                android:gravity="center"
+                android:textSize="@dimen/bingo_cell_text_size"
+                android:background="@drawable/bingo_cell_border"
+                android:layout_margin="@dimen/cell_margin"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <TextView
+                android:id="@+id/cell_3_4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/default_number"
+                android:gravity="center"
+                android:textSize="@dimen/bingo_cell_text_size"
+                android:background="@drawable/bingo_cell_border"
+                android:layout_margin="@dimen/cell_margin"
+                android:clickable="true"
+                android:focusable="true" />
+        </LinearLayout>
+
+        <!-- Row 5 - Fifth row of Bingo numbers (cells 4,0 to 4,4) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/cell_4_0"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/default_number"
+                android:gravity="center"
+                android:textSize="@dimen/bingo_cell_text_size"
+                android:background="@drawable/bingo_cell_border"
+                android:layout_margin="@dimen/cell_margin"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <TextView
+                android:id="@+id/cell_4_1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/default_number"
+                android:gravity="center"
+                android:textSize="@dimen/bingo_cell_text_size"
+                android:background="@drawable/bingo_cell_border"
+                android:layout_margin="@dimen/cell_margin"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <TextView
+                android:id="@+id/cell_4_2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/default_number"
+                android:gravity="center"
+                android:textSize="@dimen/bingo_cell_text_size"
+                android:background="@drawable/bingo_cell_border"
+                android:layout_margin="@dimen/cell_margin"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <TextView
+                android:id="@+id/cell_4_3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/default_number"
+                android:gravity="center"
+                android:textSize="@dimen/bingo_cell_text_size"
+                android:background="@drawable/bingo_cell_border"
+                android:layout_margin="@dimen/cell_margin"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <TextView
+                android:id="@+id/cell_4_4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/default_number"
+                android:gravity="center"
+                android:textSize="@dimen/bingo_cell_text_size"
+                android:background="@drawable/bingo_cell_border"
+                android:layout_margin="@dimen/cell_margin"
+                android:clickable="true"
+                android:focusable="true" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- 
+        Generate New Card button
+        Clicking this button randomizes all numbers in the Bingo grid
+        and clears all cell selections
+    -->
+    <Button
+        android:id="@+id/actionButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/generate_new_card"
+        android:textSize="@dimen/button_text_size"
+        android:layout_marginStart="@dimen/button_margin_horizontal"
+        android:layout_marginEnd="@dimen/button_margin_horizontal"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@id/configButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- 
+        Change Password button
+        Opens ConfigActivity to allow users to update their login credentials
+        Has purple background for visual distinction from the New Card button
+    -->
+    <Button
+        android:id="@+id/configButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/change_password_button"
+        android:textSize="@dimen/button_text_size"
+        android:background="@drawable/button_config_background"
+        android:textColor="@android:color/white"
+        android:layout_marginStart="@dimen/button_margin_horizontal"
+        android:layout_marginEnd="@dimen/button_margin_horizontal"
+        android:layout_marginBottom="@dimen/button_margin_bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
